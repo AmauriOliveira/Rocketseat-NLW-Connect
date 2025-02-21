@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  nlw:
+    image: 'mysql:8.4'
+    restart: always
+    container_name: 'mysql-nlw'
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+    expose:
+      - '3306'
+    ports:
+      - '3306:3306'
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+      #  sudo docker-compose up -d
+      #  sudo docker-compose down
