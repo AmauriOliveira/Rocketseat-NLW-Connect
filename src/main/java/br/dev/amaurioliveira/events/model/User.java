@@ -2,9 +2,6 @@ package br.dev.amaurioliveira.events.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 @Entity
 @Table(name = "tbl_user")
 public class User {

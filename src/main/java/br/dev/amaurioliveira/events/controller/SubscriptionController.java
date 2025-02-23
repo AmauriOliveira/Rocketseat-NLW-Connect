@@ -5,7 +5,6 @@ import br.dev.amaurioliveira.events.dto.SubscriptionResponse;
 import br.dev.amaurioliveira.events.exception.EventNotFoundException;
 import br.dev.amaurioliveira.events.exception.SubscriptionConflictException;
 import br.dev.amaurioliveira.events.exception.UserIndicatorNotFoundException;
-import br.dev.amaurioliveira.events.model.Subscription;
 import br.dev.amaurioliveira.events.model.User;
 import br.dev.amaurioliveira.events.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
