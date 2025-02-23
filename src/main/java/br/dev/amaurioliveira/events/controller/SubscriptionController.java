@@ -10,10 +10,7 @@ import br.dev.amaurioliveira.events.model.User;
 import br.dev.amaurioliveira.events.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SubscriptionController {
@@ -35,5 +32,23 @@ public class SubscriptionController {
         }
 
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/subscription/{prettyName}/ranking")
+    public ResponseEntity<?> generateRankingByEvent(@PathVariable String prettyName) {
+        try {
+            return ResponseEntity.ok(subscriptionService.getSubscriptionRankingItems(prettyName).subList(0, 3));
+        } catch (EventNotFoundException exception) {
+            return ResponseEntity.status(404).body(new ErrorMessage(exception.getMessage()));
+        }
+    }
+
+    @GetMapping("/subscription/{prettyName}/ranking/{userId}")
+    public ResponseEntity<?> generateRankingByEventAndUser(@PathVariable String prettyName, @PathVariable Integer userId) {
+        try {
+            return ResponseEntity.ok( subscriptionService.getSubscriptionRankingByUser(prettyName, userId));
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage()));
+        }
     }
 }
