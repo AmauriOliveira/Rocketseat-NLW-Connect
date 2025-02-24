@@ -16,17 +16,18 @@ public class SubscriptionController {
     @Autowired
     private SubscriptionService subscriptionService;
 
-    @PostMapping({"/subscription/{prettyName}", "/subscription/{prettyName}/{userId}"})
-    public ResponseEntity<?> createSubscription(@PathVariable String prettyName, @RequestBody User subscriber, @PathVariable(required = false) Integer userId) {
+    @PostMapping({ "/subscription/{prettyName}", "/subscription/{prettyName}/{userId}" })
+    public ResponseEntity<?> createSubscription(@PathVariable String prettyName, @RequestBody User subscriber,
+            @PathVariable(required = false) Integer userId) {
         try {
-            SubscriptionResponse subscription = subscriptionService.createNewSubscription(prettyName, subscriber, userId);
+            SubscriptionResponse subscription = subscriptionService.createNewSubscription(prettyName, subscriber,
+                    userId);
             if (subscription != null) {
                 return ResponseEntity.ok().body(subscription);
             }
         } catch (EventNotFoundException | UserIndicatorNotFoundException exception) {
             return ResponseEntity.status(404).body(new ErrorMessage(exception.getMessage()));
-        }
-        catch (SubscriptionConflictException exception) {
+        } catch (SubscriptionConflictException exception) {
             return ResponseEntity.status(409).body(new ErrorMessage(exception.getMessage()));
         }
 
@@ -43,9 +44,10 @@ public class SubscriptionController {
     }
 
     @GetMapping("/subscription/{prettyName}/ranking/{userId}")
-    public ResponseEntity<?> generateRankingByEventAndUser(@PathVariable String prettyName, @PathVariable Integer userId) {
+    public ResponseEntity<?> generateRankingByEventAndUser(@PathVariable String prettyName,
+            @PathVariable Integer userId) {
         try {
-            return ResponseEntity.ok( subscriptionService.getSubscriptionRankingByUser(prettyName, userId));
+            return ResponseEntity.ok(subscriptionService.getSubscriptionRankingByUser(prettyName, userId));
         } catch (Exception e) {
             return ResponseEntity.status(400).body(new ErrorMessage(e.getMessage()));
         }
