@@ -16,7 +16,7 @@ public class EventController {
 
     @PostMapping("/events")
     public Event addNewEvent(@RequestBody Event event) {
-        return  eventService.addNewEvent(event);
+        return eventService.addNewEvent(event);
     }
 
     @GetMapping("/events")
